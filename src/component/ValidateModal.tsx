@@ -52,6 +52,8 @@ const ValidateModal = (props: Props) => {
       const send = await axios.post(import.meta.env.VITE_API_ENDPOINT, body, {
         headers: {
           "Content-Type": "application/json",
+          "Access-Control-Allow-Credentials": true,
+
           // Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
         },
       });
