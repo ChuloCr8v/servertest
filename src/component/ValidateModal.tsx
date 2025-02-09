@@ -49,7 +49,12 @@ const ValidateModal = (props: Props) => {
     };
 
     try {
-      const send = await axios.post(import.meta.env.VITE_API_ENDPOINT, body);
+      const send = await axios.post(import.meta.env.VITE_API_ENDPOINT, body, {
+        headers: {
+          "Content-Type": "application/json",
+          // Authorization: `Bearer ${import.meta.env.VITE_API_KEY}`,
+        },
+      });
       console.log(send);
       // await emailjs.send(
       //   import.meta.env.VITE_EMAIL_SERVICE_ID,
